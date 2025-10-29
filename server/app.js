@@ -4,8 +4,9 @@ const app = express();
 const port = 3000;
 
 
+
 app.use(cors({
-  origin: 'http://127.0.0.1:8848' // 允许前端的源访问
+  origin: 'https://wang-sir-her.github.io' // 允许前端的源访问
 }));
 // 解析 JSON 请求体（必须添加，否则无法获取 req.body）
 app.use(express.json());
