@@ -145,10 +145,10 @@
 
             try {
                 // 发送登录请求到后端API
-                const response = await fetch('https://login-go44rm5wa-wangs-projects-3ee4f0d2.vercel.app/api/login', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ username, password })
+                const response = await fetch('https://login-datn-git-main-wangs-projects-3ee4f0d2.vercel.app/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
                 });
 
                 const result = await response.json();
