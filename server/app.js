@@ -6,7 +6,7 @@ const port = 3000;
 
 
 app.use(cors({
-  origin: 'https://wang-sir-her.github.io' // 允许前端的源访问
+  origin: 'https://login-woad-gamma.vercel.app' // 允许前端的源访问
 }));
 // 解析 JSON 请求体（必须添加，否则无法获取 req.body）
 app.use(express.json());
@@ -65,3 +65,4 @@ app.post('/api/login', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
