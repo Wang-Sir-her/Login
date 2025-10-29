@@ -4,9 +4,9 @@ const app = express();
 
 // 配置 CORS：明确允许前端域名访问
 app.use(cors({
-  origin: 'https://login-woad-gamma.vercel.app', // 前端在线域名
-  methods: ['GET', 'POST', 'OPTIONS'], // 允许的请求方法
-  credentials: true // 允许携带凭证（如 Cookie，若需）
+  origin: 'https://login-datn-c3byfabvm-wangs-projects-3ee4f0d2.vercel.app', 
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true 
 }));
 
 // 解析 JSON 请求体
