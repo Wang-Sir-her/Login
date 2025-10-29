@@ -1,68 +1,43 @@
 const express = require('express');
-const cors = require('cors'); 
+const cors = require('cors');
 const app = express();
-const port = 3000;
 
-
-
+// 配置 CORS：明确允许前端域名访问
 app.use(cors({
-  origin: 'https://login-woad-gamma.vercel.app' // 允许前端的源访问
+  origin: 'https://login-woad-gamma.vercel.app', // 前端在线域名
+  methods: ['GET', 'POST', 'OPTIONS'], // 允许的请求方法
+  credentials: true // 允许携带凭证（如 Cookie，若需）
 }));
-// 解析 JSON 请求体（必须添加，否则无法获取 req.body）
+
+// 解析 JSON 请求体
 app.use(express.json());
 
-// 硬编码的正确账号密码（实际项目中会从数据库查询）
-const validUser = {
-  username: 'admin',
-  password: '123456'
-};
+// 硬编码账号密码
+const validUser = { username: 'admin', password: '123456' };
 
-// 生成模拟 Token（简单随机字符串，实际项目用 jsonwebtoken 生成）
+// 生成模拟 Token
 function generateToken() {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = '';
-  for (let i = 0; i < 12; i++) {
-    token += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return token;
+  return Math.random().toString(36).substring(2, 15);
 }
 
-// POST /api/login 接口
+// 登录接口
 app.post('/api/login', (req, res) => {
-  // 获取前端端传来的用户名和密码
   const { username, password } = req.body;
-
-  // 校验参数是否存在
   if (!username || !password) {
-    return res.json({
-      code: 1,
-      message: 'Username and password are required',
-      data: null
-    });
+    return res.json({ code: 1, message: 'Username and password are required', data: null });
   }
-
-  // 校验校验账号密码是否正确
   if (username === validUser.username && password === validUser.password) {
-    // 登录成功，返回 Token
-    return res.json({
-      code: 0,
-      message: 'Login successful',
-      data: {
-        token: generateToken() // 生成随机 Token
-      }
-    });
+    return res.json({ code: 0, message: 'Login successful', data: { token: generateToken() } });
   } else {
-    // 登录失败
-    return res.json({
-      code: 1,
-      message: 'Invalid username or password',
-      data: null
-    });
+    return res.json({ code: 1, message: 'Invalid username or password', data: null });
   }
 });
+
+// 处理预检请求（OPTIONS 方法）
+app.options('*', cors());
 
 // 启动服务
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-

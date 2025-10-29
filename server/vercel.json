@@ -1,0 +1,20 @@
+{
+  "headers": [
+    {
+      "source": "/api/(.*)", // 匹配所有 /api 开头的接口
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://login-woad-gamma.vercel.app" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" },
+        { "key": "Access-Control-Allow-Credentials", "value": "true" }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.js", // 后端入口文件
+      "methods": ["GET", "POST", "OPTIONS"]
+    }
+  ]
+}
